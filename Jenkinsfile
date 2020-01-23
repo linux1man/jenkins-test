@@ -6,6 +6,7 @@ pipeline {
         sh 'echo "Testing Complete"'
       }
     }
+
     stage('Integration Test') {
       steps {
         sh '''echo "Preforming Integration Test"
@@ -17,6 +18,7 @@ echo "Integration Test Complete"
 '''
       }
     }
+
     stage('Build') {
       steps {
         sh 'mvn -B -DskipTests clean package'
@@ -25,10 +27,13 @@ echo "Integration Test Complete"
         sh 'pwd'
       }
     }
+
     stage('Deploy App') {
       steps {
         sh 'echo "App Deployed"'
+        mail(subject: 'Success', body: 'Hi success ', from: 'x@x.com', to: 'y@y.com')
       }
     }
+
   }
 }
